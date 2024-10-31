@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\CreateUser;
+use App\Livewire\Devices;
 use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,6 @@ Route::middleware([
     Route::get('/users', Users::class)->name('users');
 
     Route::get('/create-user', CreateUser::class)->name('create-user');
+    Route::get('/devices', Devices::class)->name('devices');
 
 });

@@ -12,12 +12,15 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-1 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         پیشخوان
                     </x-nav-link>
                     <x-nav-link wire:navigate href="{{ route('users') }}" :active="request()->routeIs('users')">
                         کاربران
+                    </x-nav-link>
+                    <x-nav-link wire:navigate href="{{ route('devices') }}" :active="request()->routeIs('devices')">
+                        دستگاه ها
                     </x-nav-link>
                 </div>
             </div>
