@@ -3,19 +3,13 @@
         <h2 class="text-xl text-gray-800 leading-tight text-center vazirmatn">
             مدیریت دستگاه ها
         </h2>
-        @can('isAdmin')
+{{--        @can('isAdmin')--}}
             <div dir="rtl" class="pr-4 pt-4">
-                <button x-data
-                        class="px-3 py-1 bg-teal-500 text-white rounded flex" dir="rtl">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                         stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    کاربر جدید
+                <button x-data x-on:click="$dispatch('open-modal',{name:'new-device'})" class="px-3 py-1 bg-teal-500 text-white rounded">
+                    add device
                 </button>
             </div>
-        @endcan
+{{--        @endcan--}}
     </x-slot>
 
     <div>
@@ -93,7 +87,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 flex items-center justify-end">
-                                        <button onClick="confirm('مطمئن هستید؟')" wire:click="#"
+                                        <button onClick="confirm('مطمئن هستید؟')" wire:click="delete({{$device->id}})"
                                                 class="px-1 py-1 bg-red-200 text-black rounded m-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                                  stroke="currentColor" class="w-5 h-5">
@@ -146,9 +140,10 @@
         </section>
 
     </div>
-    <x-my-modal name="new-user" title="کاربر جدید">
+    <x-my-modal name="new-device" title="دستگاه جدید">
         <x-slot:body>
-
+            <livewire:create-device/>
         </x-slot:body>
     </x-my-modal>
+
 </div>

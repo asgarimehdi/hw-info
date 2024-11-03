@@ -26,6 +26,10 @@ class Devices extends Component
         'ip' => 'required',
         'username' => 'required',
     ];
+    public function delete(ModelsDevice $device): void
+    {
+        $device->delete();
+    }
     public function render()
     {
         $devices = ModelsDevice::search($this->search)->paginate($this->perPage);
