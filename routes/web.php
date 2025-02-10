@@ -38,3 +38,8 @@ Route::middleware([
     Route::get('/devices', Devices::class)->name('devices');
 
 });
+
+//*****************************************
+use App\Livewire\ShowMap;
+
+Route::get('/map', ShowMap::class)->name('map');
