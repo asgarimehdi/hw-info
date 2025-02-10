@@ -34,18 +34,24 @@
     </div>
 
     <script>
-         document.addEventListener('livewire:init', () => {
-        const apiKey = @js($this->apiKey);
+        document.addEventListener('livewire:init', () => {
+            const apiKey = @js($this->apiKey);
+            const regionCounties = @js($this->regionCounties); // ارسال دادهها به JS
         
-        const map = new L.Map("map", {
-            key: apiKey,
-            maptype: "neshan",
-            center: [35.699756, 51.338076],
-            zoom: 14,
+            const map = new L.Map("map", {
+                key: apiKey,
+                maptype: "neshan",
+                center: [36.1474388, 49.2286013],
+                zoom: 8,
+            });
+        
+            // افزودن مارکرها برای هر شهرستان
+            regionCounties.forEach(county => {
+                L.marker([county.lat, county.lng])
+                .bindPopup(`<b>${county.name}</b>`)
+                .addTo(map);
+            });
         });
-
-        
-    });
-    </script>
+        </script>
 </body>
 </html>
