@@ -43,7 +43,7 @@
             spiderfyOnMaxZoom: true,
             showCoverageOnHover: false
         });
-
+ 
         regionCounties.forEach(county => {
             const marker = L.marker([county.lat, county.lng])
             .bindPopup(`<b>${county.name}</b>`);
@@ -51,8 +51,22 @@
             markersCluster.addLayer(marker);
         });
 
-        map.addLayer(markersCluster);
+        map.addLayer(markersCluster); 
 
+        /*  // افزودن مارکرها برای هر شهرستان
+         regionCounties.forEach(county => {
+                L.marker([county.lat, county.lng])
+                .bindPopup(`<b>${county.name}</b>`)
+                .addTo(map);
+            }); */
+
+      /*       // —— ۲. ترسیم خطوط ——
+        const coordinates = regionCounties.map(c => [c.lng, c.lat]);
+        const lineString = turf.lineString(coordinates);
+        
+        L.geoJSON(lineString, {
+            style: { color: '#ff0000', weight: 3 }
+        }).addTo(map); */
         
     });
     </script>
