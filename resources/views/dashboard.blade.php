@@ -34,6 +34,9 @@
                 <button x-data x-on:click="$dispatch('open-modal',{name:'new-device'})" class="px-3 py-1 bg-teal-500 text-white rounded">
                     add device
                 </button>
+                <button  class="px-3 py-1 bg-teal-500 text-white rounded">
+                  <a href="{{ route('map') }}">show map</a>
+                </button>
 
                 <x-welcome />
             </div>
