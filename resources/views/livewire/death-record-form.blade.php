@@ -19,15 +19,17 @@
             <input type="text" wire:model="cause_of_death" id="cause_of_death">
             @error('cause_of_death') <span>{{ $message }}</span> @enderror
         </div>
+        <input type="hidden" wire:model="lat">
+        <input type="hidden" wire:model="lng">
         <div>
-            <label for="lat">عرض جغرافیایی:</label>
-            <input type="text" wire:model="lat" id="lat" readonly>
+            <label for="lat_display">عرض جغرافیایی:</label>
+    <input type="text" id="lat_display" value="{{ $lat }}" readonly>
             @error('lat') <span>{{ $message }}</span> @enderror
         </div>
         
         <div>
-            <label for="lng">طول جغرافیایی:</label>
-            <input type="text" wire:model="lng" id="lng" readonly>
+            <label for="lng_display">طول جغرافیایی:</label>
+            <input type="text" id="lng_display" value="{{ $lng }}" readonly>
             @error('lng') <span>{{ $message }}</span> @enderror
         </div>
         <button type="submit">ثبت</button>
@@ -88,8 +90,8 @@
                 return;
             }
 
-            document.getElementById('lat').value = lat;
-            document.getElementById('lng').value = lng;
+            document.getElementById('lat_display').value = lat;
+            document.getElementById('lng_display').value = lng;
             @this.set('lat', lat);
             @this.set('lng', lng);
 
