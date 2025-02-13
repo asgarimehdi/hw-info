@@ -19,11 +19,15 @@ class DeathRecordForm extends Component
     public $location;
     public $death_date;
     public $cause_of_death;
-
+    public $lat;
+    public $lng;
+    
     protected $rules = [
         'location' => 'required|string|max:255',
         'death_date' => 'required|date',
         'cause_of_death' => 'required|string|max:255',
+        'lat' => 'required|numeric',
+        'lng' => 'required|numeric',
     ];
 
     public function submit()
@@ -35,6 +39,8 @@ class DeathRecordForm extends Component
             'location' => $this->location,
             'death_date' => $this->death_date,
             'cause_of_death' => $this->cause_of_death,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
         ]);
 
         session()->flash('message', 'ثبت مرگ با موفقیت انجام شد.');

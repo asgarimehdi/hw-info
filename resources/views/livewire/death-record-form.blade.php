@@ -19,7 +19,17 @@
             <input type="text" wire:model="cause_of_death" id="cause_of_death">
             @error('cause_of_death') <span>{{ $message }}</span> @enderror
         </div>
-    
+        <div>
+            <label for="lat">عرض جغرافیایی:</label>
+            <input type="text" wire:model="lat" id="lat" readonly>
+            @error('lat') <span>{{ $message }}</span> @enderror
+        </div>
+        
+        <div>
+            <label for="lng">طول جغرافیایی:</label>
+            <input type="text" wire:model="lng" id="lng" readonly>
+            @error('lng') <span>{{ $message }}</span> @enderror
+        </div>
         <button type="submit">ثبت</button>
     
         @if (session()->has('message'))
@@ -46,21 +56,42 @@
                 center: [36.1474388, 49.2286013],
                 zoom: 8
             });
-    
-            // —— ۱. افزودن کلاستر مارکرها ——
+            var marker;
+
+map.on('click', function (e) {
+    var lat = e.latlng.lat;
+    var lng = e.latlng.lng;
+
+    // نمایش مختصات در ورودی‌ها
+    document.getElementById('lat').value = lat;
+    document.getElementById('lng').value = lng;
+
+    // ارسال مختصات به Livewire
+    @this.set('lat', lat);
+    @this.set('lng', lng);
+
+    // افزودن یا جابجایی مارکر
+    if (marker) {
+        marker.setLatLng([lat, lng]);
+    } else {
+        marker = L.marker([lat, lng]).addTo(map);
+    }
+});
+
+           /*  // —— ۱. افزودن کلاستر مارکرها ——
             const markersCluster = L.markerClusterGroup({
                 spiderfyOnMaxZoom: true,
                 showCoverageOnHover: false
-            });
+            }); */
      
-            regionCounties.forEach(county => {
+         /*    regionCounties.forEach(county => {
                 const marker = L.marker([county.lat, county.lng])
                 .bindPopup(`<b>${county.name}</b>`);
     
                 markersCluster.addLayer(marker);
             });
     
-            map.addLayer(markersCluster); 
+            map.addLayer(markersCluster);  */
     
             /*  // افزودن مارکرها برای هر شهرستان
              regionCounties.forEach(county => {
