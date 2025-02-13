@@ -57,27 +57,48 @@
                 zoom: 8
             });
             var marker;
+        var boundary = @json($boundary); // مختصات محدوده
 
-map.on('click', function (e) {
-    var lat = e.latlng.lat;
-    var lng = e.latlng.lng;
+        if (boundary) {
+            var polygon = L.polygon(boundary, {color: 'red'}).addTo(map);
+            map.fitBounds(polygon.getBounds()); // نمایش کامل محدوده
+        }
 
-    // نمایش مختصات در ورودی‌ها
-    document.getElementById('lat').value = lat;
-    document.getElementById('lng').value = lng;
+        function isPointInsidePolygon(point, polygon) {
+            var inside = false;
+            var x = point[0], y = point[1];
 
-    // ارسال مختصات به Livewire
-    @this.set('lat', lat);
-    @this.set('lng', lng);
+            for (var i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+                var xi = polygon[i][0], yi = polygon[i][1];
+                var xj = polygon[j][0], yj = polygon[j][1];
 
-    // افزودن یا جابجایی مارکر
-    if (marker) {
-        marker.setLatLng([lat, lng]);
-    } else {
-        marker = L.marker([lat, lng]).addTo(map);
-    }
-});
+                var intersect = ((yi > y) !== (yj > y)) &&
+                    (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+            return inside;
+        }
 
+        map.on('click', function (e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+
+            if (boundary && !isPointInsidePolygon([lat, lng], boundary)) {
+                alert("محل انتخاب‌شده خارج از محدوده مجاز است!");
+                return;
+            }
+
+            document.getElementById('lat').value = lat;
+            document.getElementById('lng').value = lng;
+            @this.set('lat', lat);
+            @this.set('lng', lng);
+
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng]).addTo(map);
+            }
+        });
            /*  // —— ۱. افزودن کلاستر مارکرها ——
             const markersCluster = L.markerClusterGroup({
                 spiderfyOnMaxZoom: true,

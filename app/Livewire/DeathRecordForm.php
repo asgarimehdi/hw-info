@@ -5,7 +5,8 @@ namespace App\Livewire;
 use App\Models\DeathRecord;
 use Livewire\Component;
 use App\Models\Region_counties;
-
+use App\Models\Region_points;
+use Illuminate\Support\Facades\Auth;
 class DeathRecordForm extends Component
 {
     public $apiKey;
@@ -15,12 +16,22 @@ class DeathRecordForm extends Component
         $this->apiKey = env('NESHAN_API_KEY');
         $this->regionCounties = Region_counties::all(); 
 
+        $user = Auth::user();
+        if ($user && $user->point_id) {
+            $region = Region_points::where('id', $user->point_id)->first();
+            if ($region && $region->boundary) {
+                $this->boundary = json_decode($region->boundary, true);
+            }
+        }
+
     }
     public $location;
     public $death_date;
     public $cause_of_death;
     public $lat;
     public $lng;
+    public $boundary;
+
     
     protected $rules = [
         'location' => 'required|string|max:255',
