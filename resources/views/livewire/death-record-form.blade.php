@@ -1,45 +1,82 @@
-<div>
-    <form wire:submit.prevent="submit">
-        @csrf
-    
-        <div>
-            <label for="location">مکان:</label>
-            <input type="text" wire:model="location" id="location">
-            @error('location') <span>{{ $message }}</span> @enderror
+<div class="container-fluid mt-3">
+    <div class="row">
+        <!-- بخش گزارش گیری سمت چپ -->
+        <div class="col-md-3 bg-white p-3 shadow-sm rounded">
+            <h5 class="text-center">📊 گزارش‌گیری</h5>
+            <hr>
+            <p>................................</p>
         </div>
-    
-        <div>
-            <label for="death_date">تاریخ مرگ:</label>
-            <input type="date" wire:model="death_date" id="death_date">
-            @error('death_date') <span>{{ $message }}</span> @enderror
+
+        <!-- بخش نقشه در وسط -->
+        <div class="col-md-6">
+            <div id="map" wire:ignore></div>
+
         </div>
-    
-        <div>
-            <label for="cause_of_death">علت مرگ:</label>
-            <input type="text" wire:model="cause_of_death" id="cause_of_death">
-            @error('cause_of_death') <span>{{ $message }}</span> @enderror
+
+        <!-- بخش فرم سمت راست -->
+        <div class="col-md-3 bg-white p-3 shadow-sm rounded">
+            <h5 class="text-center">📌 ثبت اطلاعات فوت</h5>
+            <hr>
+            <form wire:submit.prevent="submit">
+                @csrf
+
+                <!-- فیلد کد ملی -->
+                <div class="mb-2">
+                    <label for="national_id" class="form-label">کد ملی متوفی:</label>
+                    <input type="text" wire:model="national_id" id="national_id" class="form-control">
+                    @error('national_id') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+
+                
+
+                <!-- انتخاب علت مرگ از جدول -->
+                <div class="mb-2">
+                    <label for="cause_of_death">علت مرگ:</label>
+                    <select wire:model="cause_of_death" id="cause_of_death" class="form-control">
+                        <option value="">انتخاب کنید</option>
+                        @foreach($causes as $cause)
+                            <option value="{{ $cause->name }}">{{ $cause->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('cause_of_death') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- تاریخ فوت (به زودی شمسی می‌کنیم) -->
+                <div class="mb-2">
+                    <label for="death_date">تاریخ فوت:</label>
+                    <input type="date" wire:model="death_date" id="death_date" class="form-control">
+                    @error('death_date') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <input type="hidden" wire:model="lat">
+                <input type="hidden" wire:model="lng">
+                <div class="mb-2">
+                    <label for="lat_display">عرض جغرافیایی:</label>
+            <input type="text" id="lat_display" value="{{ $lat }}" readonly class="form-control">
+                    @error('lat') <span>{{ $message }}</span> @enderror
+                </div>
+                
+                <div class="mb-2">
+                    <label for="lng_display">طول جغرافیایی:</label>
+                    <input type="text" id="lng_display" value="{{ $lng }}" readonly class="form-control">
+                    @error('lng') <span>{{ $message }}</span> @enderror
+                </div>
+                <!-- توضیحات -->
+                <div class="mb-2">
+                    <label for="description">توضیحات:</label>
+                    <textarea wire:model="description" id="description" class="form-control"></textarea>
+                </div>
+
+                <!-- دکمه ثبت -->
+                <button type="submit" class="btn btn-primary w-100">ثبت</button>
+
+                <!-- نمایش پیام موفقیت -->
+                @if (session()->has('message'))
+                    <div class="alert alert-success mt-2">{{ session('message') }}</div>
+                @endif
+            </form>
         </div>
-        <input type="hidden" wire:model="lat">
-        <input type="hidden" wire:model="lng">
-        <div>
-            <label for="lat_display">عرض جغرافیایی:</label>
-    <input type="text" id="lat_display" value="{{ $lat }}" readonly>
-            @error('lat') <span>{{ $message }}</span> @enderror
-        </div>
-        
-        <div>
-            <label for="lng_display">طول جغرافیایی:</label>
-            <input type="text" id="lng_display" value="{{ $lng }}" readonly>
-            @error('lng') <span>{{ $message }}</span> @enderror
-        </div>
-        <button type="submit">ثبت</button>
-    
-        @if (session()->has('message'))
-            <div>{{ session('message') }}</div>
-        @endif
-    </form>
-    
-    <div id="map" wire:ignore></div>
+    </div>
+
     <script>
         document.addEventListener('livewire:init', () => {
             const apiKey = @js($this->apiKey);
@@ -82,55 +119,32 @@
         }
 
         map.on('click', function (e) {
-            var lat = e.latlng.lat;
-            var lng = e.latlng.lng;
+    var lat = e.latlng.lat;
+    var lng = e.latlng.lng;
 
-            if (boundary && !isPointInsidePolygon([lat, lng], boundary)) {
-                alert("محل انتخاب‌شده خارج از محدوده مجاز است!");
-                return;
-            }
+    if (boundary && !isPointInsidePolygon([lat, lng], boundary)) {
+        alert("محل انتخاب‌شده خارج از محدوده مجاز است!");
+        return;
+    }
 
-            document.getElementById('lat_display').value = lat;
-            document.getElementById('lng_display').value = lng;
-            @this.set('lat', lat);
-            @this.set('lng', lng);
+    document.getElementById('lat_display').value = lat;
+    document.getElementById('lng_display').value = lng;
 
-            if (marker) {
-                marker.setLatLng([lat, lng]);
-            } else {
-                marker = L.marker([lat, lng]).addTo(map);
-            }
-        });
-           /*  // —— ۱. افزودن کلاستر مارکرها ——
-            const markersCluster = L.markerClusterGroup({
-                spiderfyOnMaxZoom: true,
-                showCoverageOnHover: false
-            }); */
-     
-         /*    regionCounties.forEach(county => {
-                const marker = L.marker([county.lat, county.lng])
-                .bindPopup(`<b>${county.name}</b>`);
-    
-                markersCluster.addLayer(marker);
-            });
-    
-            map.addLayer(markersCluster);  */
-    
-            /*  // افزودن مارکرها برای هر شهرستان
-             regionCounties.forEach(county => {
-                    L.marker([county.lat, county.lng])
-                    .bindPopup(`<b>${county.name}</b>`)
-                    .addTo(map);
-                }); */
-    
-          /*       // —— ۲. ترسیم خطوط ——
-            const coordinates = regionCounties.map(c => [c.lng, c.lat]);
-            const lineString = turf.lineString(coordinates);
-            
-            L.geoJSON(lineString, {
-                style: { color: '#ff0000', weight: 3 }
-            }).addTo(map); */
-            
+    // مقدار `lat` و `lng` را در Livewire به‌روز کن
+    @this.set('lat', lat);
+    @this.set('lng', lng);
+
+
+    if (marker) {
+        marker.setLatLng([lat, lng]);
+    } else {
+        marker = L.marker([lat, lng]).addTo(map);
+    }
+});
+
+
+          
         });
         </script>
-</div>
+</div>   
+  

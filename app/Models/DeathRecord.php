@@ -13,6 +13,8 @@ class DeathRecord extends Model
         'death_date',
         'cause_of_death',
         'lat',
-        'lng'
+        'lng',
+        'description',
+        'national_id'
     ];
 }
