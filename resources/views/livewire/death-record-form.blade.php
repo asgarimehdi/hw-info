@@ -76,7 +76,12 @@
             </form>
         </div>
     </div>
+    @push('map')
 
+    <script src="{{ asset('js/map/neshan.js') }}" defer></script>
+    <script src="{{ asset('js/map/turf.min.js') }}" defer></script>
+    <script src="{{ asset('js/map/leaflet.markercluster.js') }}" defer></script>
+    
     <script>
         document.addEventListener('livewire:init', () => {
             const apiKey = @js($this->apiKey);
@@ -146,5 +151,16 @@
           
         });
         </script>
+        <link rel="stylesheet" href="{{ asset('css/map/neshan.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/map/MarkerCluster.css') }}"/>
+        
+        <style>
+            #map { height: 100vh; width: 100%; }
+        </style>
+        @endpush
+        {{--    <script src="https://static.neshan.org/sdk/leaflet/v1.9.4/neshan-sdk/v1.0.8/index.js"></script>--}}
+        {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>--}}
+        {{--    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>--}}
+        
 </div>   
   
