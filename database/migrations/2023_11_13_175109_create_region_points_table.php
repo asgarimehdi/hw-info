@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('lng');
             $table->unsignedBigInteger('type_id');
             $table->unsignedInteger('point_id')->nullable();
+            $table->json('boundary')->nullable();
             $table->timestamps();
         });
     }
