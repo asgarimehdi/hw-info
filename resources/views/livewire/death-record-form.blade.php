@@ -4,7 +4,10 @@
         <div class="col-md-3 bg-white p-3 shadow-sm rounded">
             <h5 class="text-center">📊 گزارش‌گیری</h5>
             <hr>
-            <p>################</p>
+            
+            <div class="mb-2">
+                <livewire:death-reports />
+            </div>
         </div>
 
         <!-- بخش نقشه در وسط -->
@@ -82,6 +85,7 @@
         </div>
     </div>
     @push('map')
+
 
     <script src="{{ asset('js/map/neshan.js') }}" defer></script>
     <script src="{{ asset('js/map/turf.min.js') }}" defer></script>
@@ -162,6 +166,7 @@
         <style>
             #map { height: 100vh; width: 100%; }
         </style>
+        
         @endpush
         {{--    <script src="https://static.neshan.org/sdk/leaflet/v1.9.4/neshan-sdk/v1.0.8/index.js"></script>--}}
         {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>--}}

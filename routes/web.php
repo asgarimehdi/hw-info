@@ -47,3 +47,6 @@ Route::get('/map', ShowMap::class)->name('map');
 use App\Livewire\DeathRecordForm;
 
 Route::get('/death-record/create', DeathRecordForm::class)->name('death-record.create');
+//************************************************* */
+
+
