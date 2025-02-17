@@ -2,6 +2,7 @@
 
 use App\Livewire\CreateDevice;
 use App\Livewire\CreateUser;
+use App\Livewire\DeathDashboard;
 use App\Livewire\Devices;
 use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
@@ -48,5 +49,6 @@ use App\Livewire\DeathRecordForm;
 
 Route::get('/death-record/create', DeathRecordForm::class)->name('death-record.create');
 //************************************************* */
+Route::get('/death-record/dashboard', DeathDashboard::class)->name('death-record.dashboard');
 
 

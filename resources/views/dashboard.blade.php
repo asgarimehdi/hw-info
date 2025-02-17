@@ -40,7 +40,9 @@
                 <button  class="px-3 py-1 bg-teal-500 text-white rounded">
                     <a href="{{ route('death-record.create') }}"> ثبت مرگ</a>
                   </button>
-
+                  <button  class="px-3 py-1 bg-teal-500 text-white rounded">
+                    <a href="{{ route('death-record.dashboard') }}"> گزارشات مرگ</a>
+                  </button>
                 <x-welcome />
             </div>
         </div>
