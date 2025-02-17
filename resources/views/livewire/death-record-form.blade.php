@@ -43,10 +43,15 @@
 
                 <!-- تاریخ فوت (به زودی شمسی می‌کنیم) -->
                 <div class="mb-2">
-                    <label for="death_date">تاریخ فوت:</label>
-                    <input type="date" wire:model="death_date" id="death_date" class="form-control">
+                    <x-persian-datepicker 
+                         wirePropertyName="death_date"   {{-- نام متغیر Livewire که تاریخ در آن ثبت می‌شود --}}
+                         label="تاریخ فوت"                {{-- برچسب فیلد --}}
+                         showFormat="jYYYY/jMM/jDD"       {{-- قالب نمایش تاریخ به صورت شمسی --}}
+                         returnFormat="YYYY-MM-DD"         {{-- قالب خروجی برای ذخیره در دیتابیس --}}
+                         :required="true"/>
                     @error('death_date') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
+                
                 <input type="hidden" wire:model="lat">
                 <input type="hidden" wire:model="lng">
                 <div class="mb-2">
