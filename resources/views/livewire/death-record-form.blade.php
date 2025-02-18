@@ -4,7 +4,10 @@
         <div class="col-md-3 bg-white p-3 shadow-sm rounded">
             <h5 class="text-center">📊 گزارش‌گیری</h5>
             <hr>
-            <p>################</p>
+            
+            <div class="mb-2">
+                <livewire:death-reports />
+            </div>
         </div>
 
         <!-- بخش نقشه در وسط -->
@@ -43,10 +46,15 @@
 
                 <!-- تاریخ فوت (به زودی شمسی می‌کنیم) -->
                 <div class="mb-2">
-                    <label for="death_date">تاریخ فوت:</label>
-                    <input type="date" wire:model="death_date" id="death_date" class="form-control">
+                    <x-persian-datepicker 
+                         wirePropertyName="death_date"   {{-- نام متغیر Livewire که تاریخ در آن ثبت می‌شود --}}
+                         label="تاریخ فوت"                {{-- برچسب فیلد --}}
+                         showFormat="jYYYY/jMM/jDD"       {{-- قالب نمایش تاریخ به صورت شمسی --}}
+                         returnFormat="YYYY-MM-DD"         {{-- قالب خروجی برای ذخیره در دیتابیس --}}
+                         :required="true"/>
                     @error('death_date') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
+                
                 <input type="hidden" wire:model="lat">
                 <input type="hidden" wire:model="lng">
                 <div class="mb-2">
@@ -77,6 +85,7 @@
         </div>
     </div>
     @push('map')
+
 
     <script src="{{ asset('js/map/neshan.js') }}" defer></script>
     <script src="{{ asset('js/map/turf.min.js') }}" defer></script>
@@ -157,6 +166,7 @@
         <style>
             #map { height: 100vh; width: 100%; }
         </style>
+        
         @endpush
         {{--    <script src="https://static.neshan.org/sdk/leaflet/v1.9.4/neshan-sdk/v1.0.8/index.js"></script>--}}
         {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>--}}
