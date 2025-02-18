@@ -6,18 +6,21 @@ use Livewire\Component;
 use App\Models\DeathRecord;
 use App\Models\CauseOfDeath;
 use Carbon\Carbon;
+use Asantibanez\LivewireCharts\Models\PieChartModel;
+use Asantibanez\LivewireCharts\Models\ColumnChartModel;
+use Asantibanez\LivewireCharts\Models\LineChartModel;
 
 class DeathDashboard extends Component
 {
     public $totalDeaths;
     public $deathsByCause = [];
     public $todayDeaths;
-    
+
     // فیلترها
     public $from_date;
     public $to_date;
     public $filter_cause;
-    
+
     // لیست علل مرگ برای فیلتر (اختیاری)
     public $causes;
 
@@ -31,7 +34,6 @@ class DeathDashboard extends Component
 
         // محاسبه تعداد مرگ‌های امروز (برابر با تاریخ امروز)
         $this->todayDeaths = DeathRecord::whereDate('death_date', Carbon::today())->count();
-    
     }
 
     /**
@@ -70,7 +72,46 @@ class DeathDashboard extends Component
 
     public function render()
     {
-        
-        return view('livewire.death-dashboard');
+        // ساخت مدل نمودار پای بر اساس داده‌های deathsByCause
+        $pieChartModel = (new PieChartModel())
+            ->setAnimated(true)
+            // ->setLegendVisibility(false) // حذف لیبل‌های زیر نمودار
+            ->withDataLabels(true) // نمایش مقدار روی نمودار
+            ->setTitle('آمار علت‌های مرگ');
+
+        // اضافه کردن داده‌ها به نمودار
+        foreach ($this->deathsByCause as $cause => $count) {
+            $pieChartModel->addSlice($cause, $count, '#' . dechex(rand(0xAAAAAA, 0xFFFFFF)));
+        }
+
+        // ایجاد مدل نمودار خطی بدون عنوان (عنوان خالی) و با نمایش مقادیر روی نمودار
+        $lineChartModel = (new LineChartModel())
+            ->setAnimated(true)
+            ->setSmoothCurve()
+            ->withDataLabels(true)
+            ->setTitle(''); // حذف عنوان
+
+        // اضافه کردن داده‌ها: هر نقطه نمایانگر یک علت مرگ به همراه تعداد آن
+        foreach ($this->deathsByCause as $cause => $count) {
+            $lineChartModel->addPoint($cause, $count, '#f6ad55'); // رنگ قابل تغییر است
+        }
+
+
+        // ایجاد مدل نمودار ستونی بدون عنوان و با نمایش مقادیر روی نمودار
+        $columnChartModel = (new ColumnChartModel())
+            ->setAnimated(true)
+            ->withDataLabels(true)
+            ->setTitle(''); // حذف عنوان
+
+        // اضافه کردن ستون‌ها: هر ستون نمایانگر یک علت مرگ است
+        foreach ($this->deathsByCause as $cause => $count) {
+            $columnChartModel->addColumn($cause, $count, '#68d391'); // رنگ دلخواه
+        }
+
+        return view('livewire.death-dashboard', [
+            'pieChartModel' => $pieChartModel,
+            'lineChartModel' => $lineChartModel,
+            'columnChartModel' => $columnChartModel,
+        ]);
     }
 }
