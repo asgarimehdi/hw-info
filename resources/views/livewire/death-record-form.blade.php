@@ -26,7 +26,7 @@
                 <!-- فیلد کد ملی -->
                 <div class="mb-2">
                     <label for="national_id" class="form-label">کد ملی متوفی:</label>
-                    <input type="text" wire:model="national_id" id="national_id" class="form-control">
+                    <input type="text" wire:model.lazy="national_id" wire:key="national-id" id="national_id" class="form-control">
                     @error('national_id') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
 
