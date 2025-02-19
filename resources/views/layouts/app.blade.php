@@ -42,5 +42,7 @@
         @stack('map')
 
         @livewireScripts
+        @livewireChartsScripts
+
     </body>
 </html>

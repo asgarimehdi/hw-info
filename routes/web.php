@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ChartExample;
 use App\Livewire\CreateDevice;
 use App\Livewire\CreateUser;
 use App\Livewire\DeathDashboard;
@@ -50,5 +51,7 @@ use App\Livewire\DeathRecordForm;
 Route::get('/death-record/create', DeathRecordForm::class)->name('death-record.create');
 //************************************************* */
 Route::get('/death-record/dashboard', DeathDashboard::class)->name('death-record.dashboard');
+//************************************************* */
+Route::get('/death-record/chart', ChartExample::class)->name('death-record.chart');
 
 
