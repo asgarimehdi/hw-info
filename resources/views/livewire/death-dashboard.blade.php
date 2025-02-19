@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-4">
                 <label>علت مرگ:</label>
-                <select wire:model="filter_cause" class="form-control">
+                <select wire:model.lazy="filter_cause" class="form-control">
                     <option value="">همه</option>
                     @foreach($causes as $cause)
                         <option value="{{ $cause->name }}">{{ $cause->name }}</option>
@@ -30,7 +30,7 @@
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-secondary mt-2">اعمال فیلتر</button>
+        {{-- <button type="submit" class="btn btn-secondary mt-2">اعمال فیلتر</button> --}}
     </form>
     
     <div class="row">
