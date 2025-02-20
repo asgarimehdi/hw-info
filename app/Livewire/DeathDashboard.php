@@ -49,7 +49,7 @@ class DeathDashboard extends Component
         if ($this->to_date) {
             $query->whereDate('death_date', '<=', $this->to_date);
         }
-        if ($this->filter_cause) {
+        if (!empty($this->filter_cause)) {
             $query->where('cause_of_death', $this->filter_cause);
         }
 
@@ -68,6 +68,12 @@ class DeathDashboard extends Component
             ->selectRaw('cause_of_death, count(*) as count')
             ->pluck('count', 'cause_of_death')
             ->toArray();
+    }
+    public function updated($propertyName)
+    {
+        if (in_array($propertyName, ['from_date', 'to_date', 'filter_cause'])) {
+            $this->applyFilters();
+        }
     }
 
     public function render()
