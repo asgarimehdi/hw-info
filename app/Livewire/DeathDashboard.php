@@ -12,7 +12,7 @@ use Asantibanez\LivewireCharts\Models\LineChartModel;
 
 class DeathDashboard extends Component
 {
-    
+
 
     public $totalDeaths;
     public $deathsByCause = [];
@@ -55,24 +55,30 @@ class DeathDashboard extends Component
             $query->where('cause_of_death', $this->filter_cause);
         }
 
-        // محاسبه تعداد کل رکوردها بر اساس فیلترها
         $this->totalDeaths = $query->count();
 
-        // محاسبه تعداد رکوردها به تفکیک علت مرگ (با در نظر گرفتن فیلترهای تاریخ)
-        $this->deathsByCause = DeathRecord::query()
-            ->when($this->from_date, function ($q) {
-                $q->whereDate('death_date', '>=', $this->from_date);
-            })
-            ->when($this->to_date, function ($q) {
-                $q->whereDate('death_date', '<=', $this->to_date);
-            })
+        $this->deathsByCause = $query
             ->groupBy('cause_of_death')
             ->selectRaw('cause_of_death, count(*) as count')
             ->pluck('count', 'cause_of_death')
             ->toArray();
 
+        // حذف مواردی که مقدار نامعتبر دارند
+        foreach ($this->deathsByCause as $cause => $count) {
+            if (!is_numeric($count) || $count < 0 || is_null($count)) {
+                unset($this->deathsByCause[$cause]); // حذف مقدار نامعتبر
+            }
+        }
+
+        // اگر مقدار خالی بود، مقدار پیش‌فرض بده
+        if (empty($this->deathsByCause)) {
+            $this->deathsByCause = ['بدون داده' => 0];
+        }
+
     }
-   
+
+
+
     public function updated($propertyName)
     {
         if (in_array($propertyName, ['from_date', 'to_date', 'filter_cause'])) {
@@ -83,40 +89,49 @@ class DeathDashboard extends Component
     public function render()
     {
 
-        // ساخت مدل نمودار پای بر اساس داده‌های deathsByCause
+        // اگر هیچ داده‌ای وجود نداشت، مقدار پیش‌فرض بده
+        if (empty($this->deathsByCause)) {
+            $this->deathsByCause = ['بدون داده' => 0];
+        }
+
+        // مدل نمودار پای
         $pieChartModel = (new PieChartModel())
             ->setAnimated(true)
-            // ->setLegendVisibility(false) // حذف لیبل‌های زیر نمودار
-            ->withDataLabels(true) // نمایش مقدار روی نمودار
+            ->withDataLabels(true)
             ->setTitle('آمار علت‌های مرگ');
 
-        // اضافه کردن داده‌ها به نمودار
         foreach ($this->deathsByCause as $cause => $count) {
+            if (!is_numeric($count) || $count < 0 || is_null($count)) {
+                continue; // مقدار نامعتبر را رد کن
+            }
             $pieChartModel->addSlice($cause, $count, '#' . dechex(rand(0xAAAAAA, 0xFFFFFF)));
         }
 
-        // ایجاد مدل نمودار خطی بدون عنوان (عنوان خالی) و با نمایش مقادیر روی نمودار
+        // مدل نمودار خطی
         $lineChartModel = (new LineChartModel())
             ->setAnimated(true)
             ->setSmoothCurve()
             ->withDataLabels(true)
-            ->setTitle(''); // حذف عنوان
+            ->setTitle('');
 
-        // اضافه کردن داده‌ها: هر نقطه نمایانگر یک علت مرگ به همراه تعداد آن
         foreach ($this->deathsByCause as $cause => $count) {
-            $lineChartModel->addPoint($cause, $count, '#f6ad55'); // رنگ قابل تغییر است
+            if (!is_numeric($count) || $count < 0 || is_null($count)) {
+                continue;
+            }
+            $lineChartModel->addPoint($cause, $count, '#f6ad55');
         }
 
-
-        // ایجاد مدل نمودار ستونی بدون عنوان و با نمایش مقادیر روی نمودار
+        // مدل نمودار ستونی
         $columnChartModel = (new ColumnChartModel())
             ->setAnimated(true)
             ->withDataLabels(true)
-            ->setTitle(''); // حذف عنوان
+            ->setTitle('');
 
-        // اضافه کردن ستون‌ها: هر ستون نمایانگر یک علت مرگ است
         foreach ($this->deathsByCause as $cause => $count) {
-            $columnChartModel->addColumn($cause, $count, '#68d391'); // رنگ دلخواه
+            if (!is_numeric($count) || $count < 0 || is_null($count)) {
+                continue;
+            }
+            $columnChartModel->addColumn($cause, $count, '#68d391');
         }
 
         return view('livewire.death-dashboard', [
@@ -125,4 +140,5 @@ class DeathDashboard extends Component
             'columnChartModel' => $columnChartModel,
         ]);
     }
+
 }
