@@ -12,6 +12,8 @@ use Asantibanez\LivewireCharts\Models\LineChartModel;
 
 class DeathDashboard extends Component
 {
+    
+
     public $totalDeaths;
     public $deathsByCause = [];
     public $todayDeaths;
@@ -68,7 +70,9 @@ class DeathDashboard extends Component
             ->selectRaw('cause_of_death, count(*) as count')
             ->pluck('count', 'cause_of_death')
             ->toArray();
+
     }
+   
     public function updated($propertyName)
     {
         if (in_array($propertyName, ['from_date', 'to_date', 'filter_cause'])) {
@@ -78,6 +82,7 @@ class DeathDashboard extends Component
 
     public function render()
     {
+
         // ساخت مدل نمودار پای بر اساس داده‌های deathsByCause
         $pieChartModel = (new PieChartModel())
             ->setAnimated(true)

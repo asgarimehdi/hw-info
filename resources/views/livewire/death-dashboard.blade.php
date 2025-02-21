@@ -71,26 +71,18 @@
             </div>
         </div>
     </div>
-    <div class="p-4 bg-white rounded shadow mb-4">
-        <h2 class="text-2xl mb-4">آمار علت‌های مرگ</h2>
-        <!-- تغییر ارتفاع از h-64 به h-96 یا اندازه دلخواه -->
-        <div class="h-96">
-            <livewire:livewire-pie-chart :pie-chart-model="$pieChartModel" />
-        </div>
-    </div> 
-    <div class="p-4 bg-white rounded shadow mt-4">
-        <h2 class="text-2xl mb-4">نمودار خطی علت‌های مرگ</h2>
-        <!-- تغییر ارتفاع با کلاس‌های CSS (مثلاً Tailwind) -->
-        <div class="h-96">
-            <livewire:livewire-line-chart :line-chart-model="$lineChartModel" />
-        </div>
-    </div>
-    <div class="p-4 bg-white rounded shadow mt-8">
-        <h2 class="text-2xl mb-4">نمودار ستونی علت‌های مرگ</h2>
-        <div class="h-96">
-            <livewire:livewire-column-chart :column-chart-model="$columnChartModel" />
-        </div>
-    </div>
+<div class="h-96">
+    <livewire:livewire-pie-chart :pie-chart-model="$pieChartModel" wire:key="pie-chart-{{ now() }}" />
+</div>
+
+<div class="h-96">
+    <livewire:livewire-line-chart :line-chart-model="$lineChartModel" wire:key="line-chart-{{ now() }}" />
+</div>
+
+<div class="h-96">
+    <livewire:livewire-column-chart :column-chart-model="$columnChartModel" wire:key="column-chart-{{ now() }}" />
+</div>
+
         
     
     
