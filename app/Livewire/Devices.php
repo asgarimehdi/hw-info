@@ -23,7 +23,7 @@ class Devices extends Component
     //Validation Rules
     protected $rules = [
         'pc_name' => 'required',
-        'ip' => 'required',
+        'ip_valid' => 'required',
         'username' => 'required',
     ];
     public function delete(ModelsDevice $device): void

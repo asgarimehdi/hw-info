@@ -15,13 +15,13 @@ class CreateDevice extends Component
 
     public $os_type= '';
 
-    public $os_version= '';
+    public $os_build= '';
 
     public $username= '';
 
     public $operator_name= '';
 
-    public $ip= '';
+    public $ip_valid= '';
 
     public $mac= '';
 
@@ -45,10 +45,10 @@ class CreateDevice extends Component
             'pc_name' => $this->pc_name,
             'type' => $this->type,
             'os_type' => $this->os_type,
-            'os_version' => $this->os_version,
+            'os_build' => $this->os_build,
             'username' => $this->username,
             'operator_name' => $this->operator_name,
-            'ip' => $this->ip,
+            'ip_valid' => $this->ip_valid,
             'mac' => $this->mac,
             'switch' => $this->switch,
             'port' => $this->port,
@@ -57,7 +57,7 @@ class CreateDevice extends Component
             'shutdown' => $this->shutdown,
             'vlan' => $this->vlan,
         ]);
-        $this->reset(['pc_name','type','os_type','os_version','username','operator_name','ip','mac','switch','port','location','unit','shutdown','vlan']);
+        $this->reset(['pc_name','type','os_type','os_build','username','operator_name','ip_valid','mac','switch','port','location','unit','shutdown','vlan']);
         request()->session()->flash('success', 'دستگاه با موفقیت اضافه شد');
         $this->dispatch('close-modal',name:'new-device');
     }

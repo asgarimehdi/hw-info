@@ -79,7 +79,7 @@
                                     <td class="px-4 py-3">{{$device->operator_name}}</td>
                                     <td class="px-4 py-3">{{$device->username}}</td>
                                     <td  class="px-4 py-3">{{$device->pc_name}}</td>
-                                    <td class="px-4 py-3">{{$device->ip}}</td>
+                                    <td class="px-4 py-3">{{$device->ip_valid}}</td>
                                     <td class="px-4 py-3">{{$device->location}} > {{$device->unit}}</td>
                                     <td class="px-4 py-3">
                                         <div class="relative inline-block w-11 h-5">
