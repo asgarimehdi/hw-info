@@ -21,7 +21,7 @@
                 </x-my-modal>
                 <x-my-modal name="new-device" title="دستگاه جدید">
                     <x-slot:body>
-                        <livewire:create-device/>
+                        <livewire:device.create-device/>
                     </x-slot:body>
                 </x-my-modal>
                 <button x-data x-on:click="$dispatch('open-modal',{name:'test'})" class="px-3 py-1 bg-teal-500 text-white rounded">

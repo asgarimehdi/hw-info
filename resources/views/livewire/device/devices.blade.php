@@ -142,7 +142,7 @@
     </div>
     <x-my-modal name="new-device" title="دستگاه جدید">
         <x-slot:body>
-            <livewire:create-device/>
+            <livewire:device.create-device/>
         </x-slot:body>
     </x-my-modal>
 

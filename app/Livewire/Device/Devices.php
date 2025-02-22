@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Device;
 
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -34,6 +34,6 @@ class Devices extends Component
     {
         $devices = ModelsDevice::search($this->search)->paginate($this->perPage);
 
-        return view('livewire.devices', ['devices' => $devices]);
+        return view('livewire.device.devices', ['devices' => $devices]);
     }
 }

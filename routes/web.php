@@ -1,10 +1,10 @@
 <?php
 
 use App\Livewire\ChartExample;
-use App\Livewire\CreateDevice;
+use App\Livewire\Device\CreateDevice;
 use App\Livewire\CreateUser;
 use App\Livewire\DeathDashboard;
-use App\Livewire\Devices;
+use App\Livewire\Device\Devices;
 use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
