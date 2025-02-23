@@ -4,13 +4,13 @@ namespace App\Livewire\Device;
 
 use Livewire\Attributes\Url;
 use Livewire\Component;
-use App\Models\Device as ModelsDevice;
+use App\Models\Device;
 use Livewire\WithPagination;
 
 class Devices extends Component
 {
     use WithPagination;
-    public $ModelsDevice;
+
 
     #[Url(history: true)]
     public $search = '';
@@ -20,7 +20,10 @@ class Devices extends Component
     {
         $this->resetPage();
     }
-
+    public function updatedPerPage()
+    {
+        $this->resetPage();
+    }
     public function delete(ModelsDevice $device): void
     {
         $device->delete();
@@ -28,7 +31,7 @@ class Devices extends Component
     }
     public function render()
     {
-        $devices = ModelsDevice::search($this->search)->paginate($this->perPage);
+        $devices = Device::search($this->search)->paginate($this->perPage);
 
         return view('livewire.device.devices', ['devices' => $devices]);
     }
