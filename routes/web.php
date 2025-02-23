@@ -38,6 +38,7 @@ Route::middleware([
     Route::get('/create-user', CreateUser::class)->name('create-user');
     Route::get('/create-device', CreateDevice::class)->name('create-device');
     Route::get('/devices', Devices::class)->name('devices');
+    Route::get('/devices/{deviceId}/edit', CreateDevice::class)->name('devices.edit');
 
 });
 

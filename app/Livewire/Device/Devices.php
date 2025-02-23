@@ -20,15 +20,11 @@ class Devices extends Component
     {
         $this->resetPage();
     }
-    //Validation Rules
-    protected $rules = [
-        'pc_name' => 'required',
-        'ip_valid' => 'required',
-        'username' => 'required',
-    ];
+
     public function delete(ModelsDevice $device): void
     {
         $device->delete();
+        session()->flash('success', 'دستگاه با موفقیت حذف شد.');
     }
     public function render()
     {

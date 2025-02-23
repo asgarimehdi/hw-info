@@ -3,13 +3,17 @@
 <div>
     <x-slot name="header">
         <h2 class="text-2xl font-bold text-gray-900 leading-tight text-center vazirmatn">
-            ✨ افزودن دستگاه جدید ✨
+            @if($deviceId)
+                ✨ ویرایش دستگاه ✨
+            @else
+                ✨ افزودن دستگاه جدید ✨
+            @endif
         </h2>
     </x-slot>
 
     <div class="flex justify-center mt-10">
         <section class="bg-white shadow-lg rounded-lg p-8 w-full max-w-6xl">
-            <form wire:submit="createDevice">
+            <form wire:submit="saveDevice">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
 
                     <!-- نام دستگاه -->
@@ -330,7 +334,11 @@
                 <div class="flex justify-center mt-6">
                     <button type="submit"
                             class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
-                        ✅ ثبت دستگاه
+                        @if($deviceId)
+                            ✅ بروزرسانی دستگاه
+                        @else
+                            ✅ ثبت دستگاه
+                        @endif
                     </button>
                 </div>
             </form>

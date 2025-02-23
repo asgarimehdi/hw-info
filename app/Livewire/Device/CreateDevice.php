@@ -43,8 +43,8 @@ class CreateDevice extends Component
     public $location_types;
     public $units;
     public $vlans;
-
-    public function mount()
+    public $deviceId;
+    public function mount($deviceId = null)
     {
         $this->types = DB::table('devices')->distinct('type')->pluck('type')->toArray();
         $this->os_types = DB::table('devices')->distinct('os_type')->pluck('os_type')->toArray();
@@ -55,9 +55,39 @@ class CreateDevice extends Component
         $this->location_types = DB::table('devices')->distinct('location_type')->pluck('location_type')->toArray();
         $this->units = DB::table('devices')->distinct('unit')->pluck('unit')->toArray();
         $this->vlans = DB::table('devices')->distinct('vlan')->pluck('vlan')->toArray();
+        $this->deviceId = $deviceId;
+        if ($this->deviceId) {
+            $device = Device::find($this->deviceId);
+            if ($device) {
+                $this->pc_name = $device->pc_name;
+                $this->username = $device->username;
+                $this->operator_name = $device->operator_name;
+                $this->type = $device->type;
+                $this->os_type = $device->os_type;
+                $this->os_build = $device->os_build;
+                $this->ip_valid = $device->ip_valid;
+                $this->ip_local = $device->ip_local;
+                $this->mac = $device->mac;
+                $this->net_type = $device->net_type;
+                $this->switch = $device->switch;
+                $this->port = $device->port;
+                $this->location = $device->location;
+                $this->location_type = $device->location_type;
+                $this->unit = $device->unit;
+                $this->shutdown = $device->shutdown;
+                $this->vlan = $device->vlan;
+                $this->motherboard = $device->motherboard;
+                $this->cpu = $device->cpu;
+                $this->ram = $device->ram;
+                $this->hdd = $device->hdd;
+                $this->upgrade_hw = $device->upgrade_hw;
+                $this->upgrade_win = $device->upgrade_win;
+                $this->clean_at = $device->clean_at;
+            }
+        }
     }
 
-    public function createDevice()
+    public function saveDevice()
     {
         $this->validate([
             'pc_name' => 'required|string|max:255',
@@ -86,35 +116,68 @@ class CreateDevice extends Component
             'clean_at' => 'nullable|date',
         ]);
 
-        // Create the device in the database
-        Device::create([
-            'pc_name' => $this->pc_name,
-            'username' => $this->username,
-            'operator_name' => $this->operator_name,
-            'type' => $this->type,
-            'os_type' => $this->os_type,
-            'os_build' => $this->os_build,
-            'ip_valid' => $this->ip_valid,
-            'ip_local' => $this->ip_local,
-            'mac' => $this->mac,
-            'net_type' => $this->net_type,
-            'switch' => $this->switch,
-            'port' => $this->port,
-            'location' => $this->location,
-            'location_type' => $this->location_type,
-            'unit' => $this->unit,
-            'shutdown' => $this->shutdown,
-            'vlan' => $this->vlan,
-            'motherboard' => $this->motherboard,
-            'cpu' => $this->cpu,
-            'ram' => $this->ram,
-            'hdd' => $this->hdd,
-            'upgrade_hw' => $this->upgrade_hw,
-            'upgrade_win' => $this->upgrade_win,
-            'clean_at' => $this->clean_at,
-        ]);
-
-        session()->flash('success', 'دستگاه با موفقیت ثبت شد!');
+        if ($this->deviceId) {
+            // بروزرسانی دستگاه موجود
+            $device = Device::find($this->deviceId);
+            if ($device) {
+                $device->update([
+                    'pc_name' => $this->pc_name,
+                    'username' => $this->username,
+                    'operator_name' => $this->operator_name,
+                    'type' => $this->type,
+                    'os_type' => $this->os_type,
+                    'os_build' => $this->os_build,
+                    'ip_valid' => $this->ip_valid,
+                    'ip_local' => $this->ip_local,
+                    'mac' => $this->mac,
+                    'net_type' => $this->net_type,
+                    'switch' => $this->switch,
+                    'port' => $this->port,
+                    'location' => $this->location,
+                    'location_type' => $this->location_type,
+                    'unit' => $this->unit,
+                    'shutdown' => $this->shutdown,
+                    'vlan' => $this->vlan,
+                    'motherboard' => $this->motherboard,
+                    'cpu' => $this->cpu,
+                    'ram' => $this->ram,
+                    'hdd' => $this->hdd,
+                    'upgrade_hw' => $this->upgrade_hw,
+                    'upgrade_win' => $this->upgrade_win,
+                    'clean_at' => $this->clean_at,
+                ]);
+                session()->flash('success', 'دستگاه با موفقیت بروزرسانی شد!');
+            }
+        } else {
+            // ایجاد دستگاه جدید
+            Device::create([
+                'pc_name' => $this->pc_name,
+                'username' => $this->username,
+                'operator_name' => $this->operator_name,
+                'type' => $this->type,
+                'os_type' => $this->os_type,
+                'os_build' => $this->os_build,
+                'ip_valid' => $this->ip_valid,
+                'ip_local' => $this->ip_local,
+                'mac' => $this->mac,
+                'net_type' => $this->net_type,
+                'switch' => $this->switch,
+                'port' => $this->port,
+                'location' => $this->location,
+                'location_type' => $this->location_type,
+                'unit' => $this->unit,
+                'shutdown' => $this->shutdown,
+                'vlan' => $this->vlan,
+                'motherboard' => $this->motherboard,
+                'cpu' => $this->cpu,
+                'ram' => $this->ram,
+                'hdd' => $this->hdd,
+                'upgrade_hw' => $this->upgrade_hw,
+                'upgrade_win' => $this->upgrade_win,
+                'clean_at' => $this->clean_at,
+            ]);
+            session()->flash('success', 'دستگاه با موفقیت ثبت شد!');
+        }
         return redirect()->route('devices'); // Change
         //$this->reset(); // Clear the form
     }
