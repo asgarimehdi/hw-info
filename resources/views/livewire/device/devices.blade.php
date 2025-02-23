@@ -5,9 +5,7 @@
         </h2>
 {{--        @can('isAdmin')--}}
             <div dir="rtl" class="pr-4 pt-4">
-                <button x-data x-on:click="$dispatch('open-modal',{name:'new-device'})" class="px-3 py-1 bg-teal-500 text-white rounded">
-                    add device
-                </button>
+                <a href="{{ route('create-device') }}" class="px-3 py-1 bg-teal-500 text-white rounded text-decoration-none">افزودن دستگاه جدید</a>
             </div>
 {{--        @endcan--}}
         @if(session()->has('success'))
@@ -97,8 +95,13 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                             </svg>
                                         </button>
-                                        <a href="{{ route('devices.edit', $device->id) }}">ویرایش</a>
-{{--                                        <button wire:click="#"--}}
+                                        <a href="{{ route('devices.edit', $device->id) }}" class="px-1 py-1 bg-green-200 text-black rounded m-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/>
+                                            </svg></a>
+{{--                                        <button wire:click="{{ route('devices.edit', $device->id) }}"--}}
 {{--                                                class="px-1 py-1 bg-green-200 text-black rounded m-1">--}}
 {{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"--}}
 {{--                                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">--}}
@@ -115,11 +118,7 @@
                         </table>
                     </div>
 
-                    <x-my-modal name="edit-user" title="ویرایش کاربر">
-                        <x-slot:body>
 
-                        </x-slot:body>
-                    </x-my-modal>
 
                     <div class="py-4 px-3" dir="ltr">
                         <div class="flex ">
@@ -143,10 +142,6 @@
         </section>
 
     </div>
-    <x-my-modal name="new-device" title="دستگاه جدید">
-        <x-slot:body>
-            <livewire:device.create-device/>
-        </x-slot:body>
-    </x-my-modal>
+
 
 </div>
