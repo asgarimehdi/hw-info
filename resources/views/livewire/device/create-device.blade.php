@@ -49,51 +49,51 @@
                         </div>
                     </div>
 
-                    <!-- نوع (کومبوباکس) -->
+                    <!-- نوع (Datalist) -->
                     <div>
                         <label for="type" class="block text-gray-700 text-sm font-bold mb-2">نوع دستگاه:</label>
                         <div class="relative">
-                            <select id="type" name="type" wire:model="type"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب نوع دستگاه</option>
-                            @foreach($types as $deviceType)
-                                <option value="{{ $deviceType }}">{{ $deviceType }}</option>
+                            <input type="text" list="typeList" wire:model="type"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="نوع دستگاه"/>
+                            <datalist id="typeList">
+                                @foreach($types as $deviceType)
+                                    <option value="{{ $deviceType }}"></option>
                                 @endforeach
-                                </select>
-                                @error('type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
-                    <!-- سیستم عامل (کومبوباکس) -->
+                    <!-- سیستم عامل (Datalist) -->
                     <div>
                         <label for="os_type" class="block text-gray-700 text-sm font-bold mb-2">سیستم عامل:</label>
                         <div class="relative">
-                            <select id="os_type" name="os_type" wire:model="os_type"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب سیستم عامل</option>
-                            @foreach($os_types as $osType)
-                                <option value="{{ $osType }}">{{ $osType }}</option>
+                            <input type="text" list="osTypeList" wire:model="os_type"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="سیستم عامل"/>
+                            <datalist id="osTypeList">
+                                @foreach($os_types as $osType)
+                                    <option value="{{ $osType }}"></option>
                                 @endforeach
-                                </select>
-                                @error('os_type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('os_type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
-                    <!-- ورژن سیستم عامل (کومبوباکس) -->
+                    <!-- ورژن سیستم عامل (Datalist) -->
                     <div>
                         <label for="os_build" class="block text-gray-700 text-sm font-bold mb-2">ورژن سیستم عامل:</label>
                         <div class="relative">
-                            <select id="os_build" name="os_build" wire:model="os_build"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب ورژن سیستم عامل</option>
-                            @foreach($os_builds as $osBuild)
-                                <option value="{{ $osBuild }}">{{ $osBuild }}</option>
+                            <input type="text" list="osBuildList" wire:model="os_build"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="ورژن سیستم عامل"/>
+                            <datalist id="osBuildList">
+                                @foreach($os_builds as $osBuild)
+                                    <option value="{{ $osBuild }}"></option>
                                 @endforeach
-                                </select>
-                                @error('os_build') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('os_build') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
@@ -130,35 +130,35 @@
                         </div>
                     </div>
 
-                    <!-- نوع شبکه (کومبوباکس) -->
+                    <!-- نوع شبکه (Datalist) -->
                     <div>
                         <label for="net_type" class="block text-gray-700 text-sm font-bold mb-2">نوع شبکه:</label>
                         <div class="relative">
-                            <select id="net_type" name="net_type" wire:model="net_type"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب نوع شبکه</option>
-                            @foreach($net_types as $netType)
-                                <option value="{{ $netType }}">{{ $netType }}</option>
+                            <input type="text" list="netTypeList" wire:model="net_type"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="نوع شبکه"/>
+                            <datalist id="netTypeList">
+                                @foreach($net_types as $netType)
+                                    <option value="{{ $netType }}"></option>
                                 @endforeach
-                                </select>
-                                @error('net_type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('net_type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
-                    <!-- سوییچ (کومبوباکس) -->
+                    <!-- سوییچ (Datalist) -->
                     <div>
                         <label for="switch" class="block text-gray-700 text-sm font-bold mb-2">سوییچ:</label>
                         <div class="relative">
-                            <select id="switch" name="switch" wire:model="switch"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب سوییچ</option>
-                            @foreach($switches as $switchItem)
-                                <option value="{{ $switchItem }}">{{ $switchItem }}</option>
+                            <input type="text" list="switchList" wire:model="switch"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="سوییچ"/>
+                            <datalist id="switchList">
+                                @foreach($switches as $switchItem)
+                                    <option value="{{ $switchItem }}"></option>
                                 @endforeach
-                                </select>
-                                @error('switch') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('switch') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
@@ -173,51 +173,51 @@
                         </div>
                     </div>
 
-                    <!-- موقعیت (کومبوباکس) -->
+                    <!-- موقعیت (Datalist) -->
                     <div>
                         <label for="location" class="block text-gray-700 text-sm font-bold mb-2">موقعیت:</label>
                         <div class="relative">
-                            <select id="location" name="location" wire:model="location"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب موقعیت</option>
-                            @foreach($locations as $locationItem)
-                                <option value="{{ $locationItem }}">{{ $locationItem }}</option>
+                            <input type="text" list="locationList" wire:model="location"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="موقعیت"/>
+                            <datalist id="locationList">
+                                @foreach($locations as $locationItem)
+                                    <option value="{{ $locationItem }}"></option>
                                 @endforeach
-                                </select>
-                                @error('location') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('location') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
-                    <!-- نوع موقعیت (کومبوباکس) -->
+                    <!-- نوع موقعیت (Datalist) -->
                     <div>
                         <label for="location_type" class="block text-gray-700 text-sm font-bold mb-2">نوع موقعیت:</label>
                         <div class="relative">
-                            <select id="location_type" name="location_type" wire:model="location_type"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب نوع موقعیت</option>
-                            @foreach($location_types as $locationType)
-                                <option value="{{ $locationType }}">{{ $locationType }}</option>
+                            <input type="text" list="locationTypeList" wire:model="location_type"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="نوع موقعیت"/>
+                            <datalist id="locationTypeList">
+                                @foreach($location_types as $locationType)
+                                    <option value="{{ $locationType }}"></option>
                                 @endforeach
-                                </select>
-                                @error('location_type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('location_type') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
-                    <!-- واحد (کومبوباکس) -->
+                    <!-- واحد (Datalist) -->
                     <div>
                         <label for="unit" class="block text-gray-700 text-sm font-bold mb-2">واحد:</label>
                         <div class="relative">
-                            <select id="unit" name="unit" wire:model="unit"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب واحد</option>
-                            @foreach($units as $unitItem)
-                                <option value="{{ $unitItem }}">{{ $unitItem }}</option>
+                            <input type="text" list="unitList" wire:model="unit"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="واحد"/>
+                            <datalist id="unitList">
+                                @foreach($units as $unitItem)
+                                    <option value="{{ $unitItem }}"></option>
                                 @endforeach
-                                </select>
-                                @error('unit') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('unit') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
@@ -235,19 +235,19 @@
                         </div>
                     </div>
 
-                    <!-- VLAN (کومبوباکس) -->
+                    <!-- VLAN (Datalist) -->
                     <div>
                         <label for="vlan" class="block text-gray-700 text-sm font-bold mb-2">VLAN:</label>
                         <div class="relative">
-                            <select id="vlan" name="vlan" wire:model="vlan"
-                                    class="block w-full py-3 pr-4 pl-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-position-right"
-                                    style="background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); background-repeat: no-repeat; background-size: 1.5em; background-position: right .5em center; padding-right: 2.5em;">
-                            <option value="">انتخاب VLAN</option>
-                            @foreach($vlans as $vlanItem)
-                                <option value="{{ $vlanItem }}">{{ $vlanItem }}</option>
+                            <input type="text" list="vlanList" wire:model="vlan"
+                                   class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                   placeholder="VLAN"/>
+                            <datalist id="vlanList">
+                                @foreach($vlans as $vlanItem)
+                                    <option value="{{ $vlanItem }}"></option>
                                 @endforeach
-                                </select>
-                                @error('vlan') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                            </datalist>
+                            @error('vlan') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
 
