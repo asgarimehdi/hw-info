@@ -8,7 +8,7 @@ use App\Livewire\Device\Devices;
 use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
-
+use App\Livewire\SalesChart;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,16 +43,7 @@ Route::middleware([
 });
 
 //*****************************************
-use App\Livewire\ShowMap;
-
-Route::get('/map', ShowMap::class)->name('map');
-//**************************************** */
-use App\Livewire\DeathRecordForm;
-
-Route::get('/death-record/create', DeathRecordForm::class)->name('death-record.create');
-//************************************************* */
-Route::get('/death-record/dashboard', DeathDashboard::class)->name('death-record.dashboard');
-//************************************************* */
-Route::get('/death-record/chart', ChartExample::class)->name('death-record.chart');
 
 
+
+Route::get('/sales-chart', SalesChart::class);

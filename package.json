@@ -19,6 +19,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "highcharts": "^12.1.2",
         "vazirmatn": "^33.0.3"
     }
 }
