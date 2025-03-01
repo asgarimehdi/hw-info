@@ -47,11 +47,12 @@ use App\Livewire\ShowMap;
 Route::get('/map', ShowMap::class)->name('map');
 //**************************************** */
 use App\Livewire\DeathRecordForm;
+use App\Livewire\TestComponent;
 
 Route::get('/death-record/create', DeathRecordForm::class)->name('death-record.create');
 //************************************************* */
 Route::get('/death-record/dashboard', DeathDashboard::class)->name('death-record.dashboard');
 //************************************************* */
 Route::get('/death-record/chart', ChartExample::class)->name('death-record.chart');
-
-
+//************************************************* */
+Route::get('/death-record/test', TestComponent::class)->name('death-record.test');

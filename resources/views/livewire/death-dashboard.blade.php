@@ -1,4 +1,49 @@
 <div class="container-fluid">
+    <div>
+    <!-- لیست کشویی برای انتخاب ماه -->
+    <select wire:model.live="selectedMonth" class="form-control" style="width: 200px; margin-bottom: 20px;">
+        @foreach($data as $month => $value)
+            <option value="{{ $month }}">{{ $month }}</option>
+        @endforeach
+    </select>
+
+    <!-- کانتینر نمودار -->
+    <div wire:ignore>
+    <div id="precipitation-chart" style="min-height: 400px;"></div>
+</div>
+
+</div>
+
+    
+
+<!-- افزودن Highcharts از طریق CDN -->
+                <script src="https://code.highcharts.com/highcharts.js"></script>
+
+@push('scripts')
+<script>
+    document.addEventListener('livewire:initialized', function () {
+        let chart = Highcharts.chart('precipitation-chart', {
+            chart: { type: 'column' },
+            title: { text: 'بارش ماهانه ۲۰۲۴' },
+            xAxis: { categories: Object.keys(@json($data)), title: { text: 'ماه' } },
+            yAxis: { title: { text: 'مقدار بارش' } },
+            series: [{ name: 'بارش', data: Object.values(@json($data)) }]
+        });
+
+        Livewire.on('monthChanged', (event) => {
+            console.log('رویداد دریافت شد:', event);
+            const month = event.month;
+            const index = chart.xAxis[0].categories.indexOf(month);
+            if (index !== -1) {
+                chart.series[0].data.forEach(function(point, i) {
+                    point.update({ color: i === index ? '#FF0000' : null });
+                });
+            }
+        });
+    });
+</script>
+@endpush
+
     <h3 class="mb-4 text-center">داشبورد گزارشات مرگ</h3>
     <form wire:submit.prevent="applyFilters" class="mb-3">
         <div class="row">

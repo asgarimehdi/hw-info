@@ -25,7 +25,29 @@ class DeathDashboard extends Component
 
     // لیست علل مرگ برای فیلتر (اختیاری)
     public $causes;
+    public $selectedMonth = 'January';
+    public $data = [
+        'January'   => 50,
+        'February'  => 40,
+        'March'     => 60,
+        'April'     => 55,
+        'May'       => 70,
+        'June'      => 65,
+        'July'      => 80,
+        'August'    => 75,
+        'September' => 60,
+        'October'   => 50,
+        'November'  => 45,
+        'December'  => 55,
+    ];
 
+    // در صورت نیاز به به‌روزرسانی یا محاسبه اطلاعات می‌توانید متدهای بیشتری اضافه کنید
+    // public function updatedSelectedMonth()
+    // {
+    //     \Log::info('ماه انتخاب شد: ' . $this->selectedMonth);
+
+    //     $this->dispatch('monthChanged', month: $this->selectedMonth, value: $this->data[$this->selectedMonth]);
+    // }
     public function mount()
     {
         // دریافت لیست علل مرگ (در صورت نیاز)
@@ -74,16 +96,22 @@ class DeathDashboard extends Component
         if (empty($this->deathsByCause)) {
             $this->deathsByCause = ['بدون داده' => 0];
         }
-
     }
 
 
 
     public function updated($propertyName)
     {
+        \Log::info('ماه انتخاب شد: ' . $this->selectedMonth);
+
+        $this->dispatch('monthChanged', month: $this->selectedMonth, value: $this->data[$this->selectedMonth]);
+
+        \Log::info('پراپرتی تغییر کرد: ' . $propertyName);
+
         if (in_array($propertyName, ['from_date', 'to_date', 'filter_cause'])) {
             $this->applyFilters();
         }
+      
     }
 
     public function render()
@@ -140,5 +168,4 @@ class DeathDashboard extends Component
             'columnChartModel' => $columnChartModel,
         ]);
     }
-
 }
