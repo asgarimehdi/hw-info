@@ -8,11 +8,18 @@ class Device extends Model
 {
     protected $fillable = [
         'pc_name','username','operator_name','type','os_type','os_build','ip_valid', 'ip_local','mac',
-        'net_type','switch','port','location','location_type','unit','shutdown','vlan','motherboard',
+        'net_type','switch','port','location','location_type','unit','shutdown','mark','vlan','motherboard',
         'cpu','ram','hdd','upgrade_hw','upgrade_win','clean_at'
     ];
     public function scopeSearch($query, $value)
     {
+        if ($value=='mark')
+            {
+               $query->where(function ($q) use ($value) {
+                $q->where('mark', '=', "1");
+                });  
+            }
+        else
         $query->where(function ($q) use ($value) {
             $q->where('pc_name', 'like', "%{$value}%")
                 ->orWhere('username', 'like', "%{$value}%")

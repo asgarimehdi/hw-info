@@ -70,6 +70,9 @@
                                 <th scope="col" class="px-4 py-3">
                                     <button class="flex items-center">خاموش</button>
                                 </th>
+                                <th scope="col" class="px-4 py-3">
+                                    <button class="flex items-center">نشان</button>
+                                </th>
                                 <th scope="col" class="px-4 py-3 flex items-center">عملیات</th>
                             </tr>
                             </thead>
@@ -85,6 +88,11 @@
                                     <td class="px-4 py-3">
                                         <div class="relative inline-block w-11 h-5">
                                             <input disabled id="switch-component" type="checkbox" @checked($device->shutdown) class="w-11 h-5 bg-slate-100 rounded-full" />
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="relative inline-block w-11 h-5">
+                                            <input disabled id="switch-component2" type="checkbox" @checked($device->mark) class="w-11 h-5 bg-slate-100 rounded-full" />
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 flex items-center justify-end">

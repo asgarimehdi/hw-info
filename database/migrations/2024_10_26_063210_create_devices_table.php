@@ -36,6 +36,8 @@ return new class extends Migration
             $table->string('hdd')->nullable();
             $table->string('upgrade_hw')->nullable();
             $table->string('upgrade_win')->nullable();
+            $table->text('comments')->nullable();
+            $table->boolean('mark')->default(0);
             $table->date('clean_at')->nullable();
             $table->timestamps();
         });

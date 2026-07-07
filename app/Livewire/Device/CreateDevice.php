@@ -24,7 +24,8 @@ class CreateDevice extends Component
     public $location;
     public $location_type;
     public $unit;
-    public $shutdown;
+    public bool $shutdown;
+    public bool $mark;
     public $vlan;
     public $motherboard;
     public $cpu;
@@ -75,6 +76,7 @@ class CreateDevice extends Component
                 $this->location_type = $device->location_type;
                 $this->unit = $device->unit;
                 $this->shutdown = $device->shutdown;
+                $this->mark = $device->mark;
                 $this->vlan = $device->vlan;
                 $this->motherboard = $device->motherboard;
                 $this->cpu = $device->cpu;
@@ -105,7 +107,8 @@ class CreateDevice extends Component
             'location' => 'nullable|string|max:255',
             'location_type' => 'nullable|string|max:255',
             'unit' => 'nullable|string|max:255',
-            'shutdown' => 'string|in:1,0',
+            'shutdown' => 'bool',
+            'mark' => 'bool',
             'vlan' => 'nullable|string|max:255',
             'motherboard' => 'nullable|string|max:255',
             'cpu' => 'nullable|string|max:255',
@@ -137,6 +140,7 @@ class CreateDevice extends Component
                     'location_type' => $this->location_type,
                     'unit' => $this->unit,
                     'shutdown' => $this->shutdown,
+                    'mark' => $this->mark,
                     'vlan' => $this->vlan,
                     'motherboard' => $this->motherboard,
                     'cpu' => $this->cpu,
@@ -167,6 +171,7 @@ class CreateDevice extends Component
                 'location_type' => $this->location_type,
                 'unit' => $this->unit,
                 'shutdown' => $this->shutdown,
+                'mark' => $this->mark,
                 'vlan' => $this->vlan,
                 'motherboard' => $this->motherboard,
                 'cpu' => $this->cpu,

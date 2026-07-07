@@ -223,14 +223,17 @@
 
                     <!-- خاموش -->
                     <div>
+                        <label for="mark" class="block text-gray-700 text-sm font-bold mb-2">مارک:</label>
+                        <div class="relative">
+                            <input type="checkbox"  wire:model.live="mark" />
+                            @error('mark') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+                        </div>
+                    </div>
+                    <!-- خاموش -->
+                    <div>
                         <label for="shutdown" class="block text-gray-700 text-sm font-bold mb-2">خاموش:</label>
                         <div class="relative">
-                            <select id="shutdown" name="shutdown" wire:model="shutdown" class="block w-full py-3 px-4 text-sm text-black bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-
-                                <option value="">خاموش شدن</option>
-                                <option value="0">خیر</option>
-                                <option value="1">بله</option>
-                            </select>
+                            <input type="checkbox"  wire:model.live="shutdown" />
                             @error('shutdown') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                         </div>
                     </div>
